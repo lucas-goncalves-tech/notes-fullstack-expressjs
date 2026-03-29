@@ -20,12 +20,12 @@ export class NotesService {
     autheticatedUser: JWTPayloadDTO | undefined,
   ): Promise<NoteSchemaType[]> {
     if (!autheticatedUser) throw new UnauthorizedError();
-    const notes = await this.notesRepository.getAll(autheticatedUser.id);
+    const notes = await this.notesRepository.findAll(autheticatedUser.id);
     return notes;
   }
 
   async getById(id: string) {
-    const note = await this.notesRepository.getByID(id);
+    const note = await this.notesRepository.findById(id);
     if (!note) {
       throw new NotFoundError("Nota");
     }
@@ -48,7 +48,7 @@ export class NotesService {
   ): Promise<NoteSchemaType> {
     if (!autheticatedUser) throw new UnauthorizedError();
 
-    const noteExists = await this.notesRepository.getByID(noteIdToUpdate);
+    const noteExists = await this.notesRepository.findById(noteIdToUpdate);
     if (!noteExists) throw new NotFoundError("Nota");
 
     if (
@@ -70,7 +70,7 @@ export class NotesService {
   ): Promise<void> {
     if (!autheticatedUser) throw new UnauthorizedError();
 
-    const noteExists = await this.notesRepository.getByID(noteIdToDelete);
+    const noteExists = await this.notesRepository.findById(noteIdToDelete);
     if (!noteExists) throw new NotFoundError("Nota");
 
     if (
