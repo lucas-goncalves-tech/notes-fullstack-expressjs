@@ -9,7 +9,7 @@ lerna-debug.log*
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 .report/
-
+*.sqlite
 # Runtime data
 pids
 *.pid
